@@ -20,6 +20,7 @@ class WeixinAction extends Action {
 	private $keyword;
 	private $textTpl;
 	private $wxuserid;
+	private $MsgId;
 
     public function sync(){
 
@@ -43,7 +44,9 @@ class WeixinAction extends Action {
                 $this->toUsername = $toUsername = $postObj->ToUserName;
                 $this->CreateTime = $CreateTime = $postObj->CreateTime;
                 $msgType = trim($postObj->MsgType);
-                $this->keyword = $keyword = trim($postObj->Content);
+                $this->keyword = $keyword = keywords(trim($postObj->Content));   // 已经过滤
+                $this->MsgId = trim($postObj->MsgId);
+
                 $this->wxuserid = trim($fromUsername);
                 $time = time();
                 $this->textTpl = $textTpl = "<xml>
@@ -54,11 +57,13 @@ class WeixinAction extends Action {
 							<Content><![CDATA[%s]]></Content>
 							<FuncFlag>0</FuncFlag>
 							</xml>";
+
 				if ($postObj->Event == "subscribe") {
 					$this->subscribe();
 				}
+
 				if($msgType != "text") {
-					$this->wxMessageReturn("对不起 吐槽只支持文字内容哟~");
+					$this->wxMessageReturn("对不起 只支持文字内容哟~");
 				}
 				if(!empty( $keyword ))
                 {
@@ -78,15 +83,22 @@ class WeixinAction extends Action {
 	 */
 	public function userdecide() {
 		$wxuserid = $this->wxuserid;
-		$wxUser = M('wxuser')->field("id,openId,topicId")->where(array("openId"=> $wxuserid))->find();
+		$wxUser = M('wxuser')->field("id,openId,topicId,lockTime")->where(array("openId"=> $wxuserid))->find();
 
 		if (!$wxUser) {									// 没有的用户记录 OpenID
 			$this->subscribe();
 		} else {
-			if ($wxUser['topicId']){					// 判断是否已经已经参加主题
-				$this->messageSave($wxUser['topicId']);
-			} else {									// 没有主题则进入主题选择模式
-				$this->topicConfirm();
+			$time = time();
+			if($time > $wxUser['lockTime']) {          // 判断是否被屏蔽
+				if ($wxUser['topicId']){			   // 判断是否已经已经参加主题
+					$this->messageSave($wxUser['topicId'],$wxUser['id']);
+				} else {							   // 没有主题则进入主题选择模式
+					$this->topicConfirm();
+				}
+			} else {                                    // 屏蔽反馈
+				$min = abs($wxUser['lockTime'] - time());
+				$min = date("i分s秒",$min);
+				$this->wxMessageReturn("可能由于你之前的言论过于敏感或含有广告成分，所以系统暂时将你锁定，距离解禁还有".$min);
 			}
 
 		};
@@ -94,19 +106,24 @@ class WeixinAction extends Action {
 	}
 
 	/**
-	 * 吐槽数据入库
+	 * 数据入库
 	 */
-	public function messageSave($tid) {
-		$wxuserid = $this->wxuserid;
+	public function messageSave($tid,$wxuid) {
 		$message = $this->keyword;
+		$MsgId = $this->MsgId;
 
 		if($message == "取消") {									// 主题取消判断
-			M('wxuser')->where(array("openId"=> $wxuserid))->setField("topicId",0);
+			M('wxuser')->where(array("id"=> $wxuid))->setField("topicId",0);
 			$this->wxMessageReturn("退出主题成功");
-		} else {												// 存储吐槽数据
+		} else {												// 存储数据
 			$topic = M('topic')->where("id=$tid")->find();
-			$this->wxMessageReturn("你好 你已经在".$topic[title]."中 进行了吐槽\n" .
-					"(如需退出请回复”取消“即可)");
+			$data = array ('topicId'=> $tid,"wxUserId"=>$wxuid, 'content'=>$message, 'creatTime'=>time(), 'MsgId'=>$MsgId );
+			$result = M('message')->add($data);
+			M('topic')->where("id=$tid")->setInc('count');
+			M('topic')->where("id=$tid")->setField('lastId',$result);
+
+			$this->wxMessageReturn("在".$topic[title]."中吐槽成功\n" .
+					"回复“取消”退出当前活动");
 		}
 	}
 
@@ -125,8 +142,8 @@ class WeixinAction extends Action {
 			M('wxuser')->where(array("openId"=> $wxuserid))->setField("topicId",$tid);
 			$this->wxMessageReturn("你选择了 [".$ttitle."]，亲\n" .
 					"现开始咆哮吧！ 少年！ [呲牙]\n" .
-					"要记得文明吐槽哟~ [偷笑]\n" .
-					"(如需退出请回复”取消“即可)");
+					"要记得文明哟~ [偷笑]\n" .
+					"(如需退出请回复“取消”)");
 		} else {												// 输出主题清单
 			$topics = listTopicTitle();
 			$this->wxMessageReturn("欢迎回到吐槽系统哟~\n" .
@@ -151,11 +168,11 @@ class WeixinAction extends Action {
 			$this->wxMessageReturn("欢迎来到吐槽系统~\n" .
 					"谢谢你关注我(*^__^*) 嘻嘻…… [害羞] [害羞]\n" .
 					"我们将先记录下你的用户名ID，作为识别信息，如果想发表吐槽请回复随意内容后获取活动列表");
+
 	}
 
 
 	/**
-	 * 通用回复功能
 	 */
 	public function wxMessageReturn($message) {
 

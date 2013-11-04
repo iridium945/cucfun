@@ -1,4 +1,5 @@
-*/_note/
+*/_notes/
 .project
 .settings/
 APP/Runtime/*
+APP/Conf/config.php

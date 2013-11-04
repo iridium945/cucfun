@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/2.0">
+  <filename>CUCfun</filename>
+  <customUpdateUI>true</customUpdateUI>
+  <id>CUCfun</id>
+  <version>1</version>
+  <initialWindow>
+    <content>Show/index.html</content>
+    <height>768</height>
+    <width>1024</width>
+    <systemChrome>none</systemChrome>
+    <transparent>true</transparent>
+    <visible>true</visible>
+  </initialWindow>
+</application>

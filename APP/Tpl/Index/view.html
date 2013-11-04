@@ -1,0 +1,72 @@
+<include file="Public:header" />
+
+<div class="mypage-header mypage-header-blue">
+    <div class="container">
+        <div class="caption">
+            <h1>查看吐槽</h1>
+            <p class="more" style="letter-spacing:5px;">VIEW ALL COMMENTS</p>
+        </div>
+    </div>
+</div>
+
+
+      <!-- START THE FEATURETTES -->
+    <div class="container">
+   
+<div class="row" style="margin-top:50px;">
+  <div class="col-md-8">
+  	<img style="margin-bottom:5px;" src="/public/images/list/title_2.jpg" />
+ 
+    <foreach name="messages" item="m">
+	<div class="row comment-list">
+      <div class="col-md-1 comment-list-num">#{$m.id}</div>
+      <div class="col-md-11 comment-list-detail">
+    	<div class="comment-list-content">{$m.content}</div>
+    	<div class="comment-list-date">{$m.creatTime|date="Y年n月d日 H:i:s",###} 
+        	<if condition="$topic[userId]==$visitor[id] || $visitor[admin]==1">
+            <div class="like" style="margin-top:-20px;">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                    管理 <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" onClick="lockUser({$m.wxUserId}, 5)" >屏蔽 5 分钟</a></li>
+                    <li><a href="#" onClick="lockUser({$m.wxUserId}, 30)" >屏蔽 30 分钟</a></li>
+                    <li><a href="#" onClick="lockUser({$m.wxUserId}, 60)" >屏蔽 60 分钟</a></li>
+                  </ul>
+                </div>
+            </div>
+            <else />
+            <div class="like">共{$m.likecount}个赞 <a href="#" onClick="likeMessage({$m.id})" ><span class="glyphicon glyphicon-thumbs-up "></span> 点赞 </a></div>
+            </if>
+        </div>
+      </div>
+    </div>
+    </foreach>
+ 
+	<div class="row" style="margin-top:50px; text-align:center">
+			{$page_nav}
+	</div>
+    
+  </div>
+  
+  <div class="col-md-4">
+
+	<div>
+      <img src="/public/images/list/title_11.jpg" />
+      <p>你正在浏览活动 <strong>{$topic.title}</strong> 中的所有吐槽<br>{$topic.description}<br>活动日期 {$topic.beginDate|date="Y年m月d日",###} 至 {$topic.endDate|date="Y年m月d日",###}</p>
+    </div>
+	<div>
+      <img src="/public/images/list/title_12.jpg" />
+      <p>当前共有{$topic.count}条吐槽<br>持续{$topic.days}天</p>
+    </div>
+  
+  </div>
+</div>
+                
+          <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+
+<include file="Public:footer" />

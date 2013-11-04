@@ -31,9 +31,17 @@ return array (
 
     //Cookie设置
     'COOKIE_EXPIRE'         => 604800,          // Coodie有效期7天
-    //'COOKIE_DOMAIN'         => 'aimozhen.com',  // Cookie有效域名
+    //'COOKIE_DOMAIN'         => 'cucfun.com',  // Cookie有效域名
     'COOKIE_PATH'           => '/',             // Cookie路径
     'COOKIE_PREFIX'         => '',          // Cookie前缀 避免冲突
+
+	// 新浪微博账户信息
+	'WEIBO_ID' => '797356440',
+	'WEIBO_SECRET' => 'ce8c95ba98ecf8290f0d8db9fadb8594',
+
+
+    //URL路由
+    'LOAD_EXT_CONFIG' => 'route',
 
     'SHOW_PAGE_TRACE' =>true
 

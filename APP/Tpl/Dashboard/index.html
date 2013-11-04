@@ -1,0 +1,149 @@
+<include file="Public:header" />
+
+<div class="mypage-header mypage-header-orange">
+    <div class="container">
+        <div class="caption">
+            <h1>后台管理</h1>
+            <p class="more" style="letter-spacing:5px;">MANAGE YOUR ACTIVTIES</p>
+        </div>
+    </div>
+</div>
+
+
+      <!-- START THE FEATURETTES -->
+    <div class="container">
+
+        <div class="row" style="margin-top:30px;">
+        <div class="col-lg-12">
+        	<h3><strong>欢迎回来，<if condition="$visitor[admin]"> 管理员 </if> {$visitor.screen_name}</strong></h3>
+        </div>
+        </div>
+        
+        <div class="row" style="margin-top:30px;">
+        <div class="col-lg-12">
+        	<h3>我创建的活动</h3>
+        </div>
+              
+        <foreach name="topics" item="t">        
+		<div class="col-lg-4">
+          <h2>{$t.title}</h2>
+          <p>{$t.description}</p>
+          <p>本活动共持续{$t.days}天 | ID编号 {$t.id} <br>
+			{$t.beginDate|date="Y年m月d日",###} 至 {$t.endDate|date="Y年m月d日",###}</p>
+          <p><a class="btn btn-primary" href="/dashboard/edit/id/{$t.id}/" role="button">编辑活动 »</a></p>
+        </div>
+        
+        </foreach>       
+        
+		<div class="col-lg-4">
+          <h2>创建一个活动</h2>
+          <p>你可以在这里快速创建一个活动，并设定他的有效时间，关键字等</p>
+          <p><a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#add_topic">点此创建 »</a></p>
+        </div>
+                
+        </div>
+            
+                
+          <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="add_topic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">添加一个活动</h4>
+      </div>
+      <div class="modal-body">
+        
+        
+        
+                <form role="form" method="post" action="{:U('Dashboard/addhandle')}">
+                <input type="hidden" name="id" value="{$topicid}">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">活动名称</label>
+                    <input type="text" class="form-control input-lg" name="title" placeholder="10 字以内">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">活动描述</label>
+                    <textarea class="form-control input-lg" rows="3" name="description" placeholder="200 字以内"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="beginDate">开始日期</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="beginDateY">
+                              <for start="2013" end="date('Y')+2">
+                              	<option value="{$i}">{$i} 年</option>
+                              </for>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="beginDateM">
+                              <for start="1" end="13">
+                              	<option value="{$i}">{$i} 月</option>
+                              </for>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="beginDateD">
+                            <for start="1" end="32">
+                              	<option value="{$i}">{$i} 日</option>
+                            </for>
+                            </select>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="endDate">结束日期</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="endDateY">
+                              <for start="2013" end="date('Y')+2">
+                              	<option value="{$i}">{$i} 年</option>
+                              </for>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="endDateM">
+                              <for start="1" end="13">
+                              	<option value="{$i}">{$i} 月</option>
+                              </for>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="endDateD">
+                            <for start="1" end="32">
+                              	<option value="{$i}">{$i} 日</option>
+                            </for>
+                            </select>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="keyword">刷屏关键字（如 PASS卡,pass卡）</label>
+                    <input type="text" class="form-control input-lg" name="keyword"  placeholder="请用英文半角逗号分隔，关键字区分大小写" >
+                  </div>
+                  <if condition="$visitor[admin]">
+                  <div class="form-group">
+                    <label for="userId">所属用户ID （管理员权限）</label>
+                    <input type="text" class="form-control input-lg" name="userId" >
+                  </div>
+                  </if>
+                  
+                  <p>&nbsp;</p>
+                  <button type="submit" class="btn btn-warning btn-lg">就这么决定了</button>
+                </form>
+        
+        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<include file="Public:footer" />

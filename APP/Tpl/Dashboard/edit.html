@@ -1,0 +1,132 @@
+<include file="Public:header" />
+
+<div class="mypage-header mypage-header-orange">
+    <div class="container">
+        <div class="caption">
+            <h1>编辑活动</h1>
+            <p class="more" style="letter-spacing:5px;">EDIT YOUR ACTIVTY</p>
+        </div>
+    </div>
+</div>
+
+
+      <!-- START THE FEATURETTES -->
+    <div class="container">
+
+        <div class="row" style="margin-top:30px;">
+            <div class="col-lg-8">
+            	<h3>正在编辑 <strong>{$topic.title}</strong> </h3>
+                <p>&nbsp;</p>
+                <form role="form" method="post" action="{:U('Dashboard/edithandle')}">
+                <input type="hidden" name="id" value="{$topicid}">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">活动名称</label>
+                    <input type="text" class="form-control input-lg" name="title" placeholder="10 字以内" value="{$topic.title}">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">活动描述</label>
+                    <textarea class="form-control input-lg" rows="3" name="description" placeholder="200 字以内">{$topic.description}</textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="beginDate">开始日期</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="beginDateY">
+                              <for start="2013" end="date('Y')+2">
+                              
+                              <if condition="$topic[beginDateY] == $i">
+                              	<option value="{$i}" selected>{$i} 年</option>
+                              <else />
+                              	<option value="{$i}">{$i} 年</option>
+                              </if>
+                              
+                              </for>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="beginDateM">
+                              <for start="1" end="13">
+                              <if condition="$topic[beginDateM] == $i">
+                              	<option value="{$i}" selected>{$i} 月</option>
+                              <else />
+                              	<option value="{$i}">{$i} 月</option>
+                              </if>
+                              </for>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="beginDateD">
+                            <for start="1" end="32">
+                              <if condition="$topic[beginDateD] == $i">
+                              	<option value="{$i}" selected>{$i} 日</option>
+                              <else />
+                              	<option value="{$i}">{$i} 日</option>
+                              </if>
+                            </for>
+                            </select>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="endDate">结束日期</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="endDateY">
+                              <for start="2013" end="date('Y')+2">
+                              <if condition="$topic[endDateY] == $i">
+                              	<option value="{$i}" selected>{$i} 年</option>
+                              <else />
+                              	<option value="{$i}">{$i} 年</option>
+                              </if>
+                              </for>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="endDateM">
+                              <for start="1" end="13">
+                              <if condition="$topic[endDateM] == $i">
+                              	<option value="{$i}" selected>{$i} 月</option>
+                              <else />
+                              	<option value="{$i}">{$i} 月</option>
+                              </if>
+                              </for>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control input-lg" name="endDateD">
+                            <for start="1" end="32">
+                              <if condition="$topic[endDateD] == $i">
+                              	<option value="{$i}" selected>{$i} 日</option>
+                              <else />
+                              	<option value="{$i}">{$i} 日</option>
+                              </if>
+                            </for>
+                            </select>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="keyword">刷屏关键字（如 PASS卡,pass卡）</label>
+                    <input type="text" class="form-control input-lg" name="keyword"  placeholder="请用英文半角逗号分隔，关键字区分大小写" value="{$topic.keyword}">
+                  </div>
+                  <if condition="$visitor[admin]">
+                  <div class="form-group">
+                    <label for="userId">所属用户ID （管理员权限）</label>
+                    <input type="text" class="form-control input-lg" name="userId"  value="{$topic.userId}">
+                  </div>
+                  </if>
+                  
+                  <p>&nbsp;</p>
+                  <button type="submit" class="btn btn-warning btn-lg">就这么决定了</button>
+                </form>
+            </div>
+        </div>
+           
+                
+          <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+<include file="Public:footer" />

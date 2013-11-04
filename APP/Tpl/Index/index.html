@@ -1,0 +1,208 @@
+<include file="Public:header" />
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="/public/images/home2.jpg" >
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>说出你的想法</h1>
+              <p id="more">SPEAK OUT YOUR THOUGHT</p>
+              <p>大屏幕滚动输出 活动现场即时互动 感受互联网时代的现场活动</p>
+              <p><a class="btn btn-large btn-primary" href="#" data-target="#myCarousel" data-slide-to="1">了解更多</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/public/images/home1.jpg" >
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>微信吐槽 统一入口</h1>
+              <p id="more">POST WITH WECHAT</p>
+              <p>删繁就简 快速高效 节省流量 易于操作 便于推广</p>
+              <p><a class="btn btn-large btn-primary" href="/how/" role="button">了解如何吐槽</a>
+              	 <a class="btn btn-large btn-primary" href="#" data-target="#myCarousel" data-slide-to="2">了解更多</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/public/images/home3.jpg" >
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>创建管理 就这么快</h1>
+              <p id="more">CREAT ACTIVITY WITH A CLICK</p>
+              <p>轻轻一点创建属于自己的活动 提供管理后台实时掌控活动</p>
+              <p><a class="btn btn-large btn-primary" href="#" data-target="#myCarousel" data-slide-to="3">了解更多</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/public/images/home4.jpg" >
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>展示吐槽 轻而易举</h1>
+              <p id="more">SHOW IT IN YOUR ACTIVITY </p>
+              <p>吐槽墙实时滚动 现场互动本该如此简单</p>
+              <p><a class="btn btn-large btn-primary" href="#" role="button" data-toggle="modal" data-target="#reg">注册创建</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-circle" src="public/images/more-1.jpg">
+          <h2>创建</h2>
+          <p>你可以在这里快速创建属于自己的活动并对其进行管理<br>无需复杂的审核与程序开发编写</p>
+          <p>
+          <if condition="$visitor">
+          <a class="btn btn-default" href="/dashboard/" role="button">前去创建 &raquo;</a>
+          <else />
+          <a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#login">前去创建 &raquo;</a>
+          </if>
+          </p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="public/images/more-2.jpg">
+          <h2>推广</h2>
+          <p>使用统一的微信入口，用户自助绑定或退出活动<br>便于统一的宣传推广，节省投入成本</p>
+          <p><a class="btn btn-default" href="#feature-1" role="button">了解推广 &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="public/images/more-3.jpg">
+          <h2>展示</h2>
+          <p>一台能上网的笔记本即可满足现场展示的需求<br>操作简单，快速上手</p>
+          <p><a class="btn btn-default" href="#" role="button">了解展示 &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+		<a name="feature-1"></a>
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">统一微信入口 <span class="text-muted">免去审核烦恼</span></h2>
+          <p class="lead">使用同一个入口首先免除了微信平台繁琐的备案审核以及开发等过程<br/>用户直接扫描二维码或添加公众账号 <strong>CUCFUN</strong> 即可完成绑定<br/>支持各种移动终端，全员参与活动互动！</p>
+          <p><a class="btn btn-default btn-lg" role="button" href="/how/">了解如何关注 &raquo;</a> &nbsp;&nbsp;
+          <button class="btn btn-default btn-lg" data-toggle="modal" data-target="#downloadQR">下载各种尺寸二维码 &raquo;</button></p>
+        </div>
+        <div class="col-md-5">
+          <img src="public/images/qrcode.jpg" alt="用微信扫描我">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <img src="public/images/bangding.jpg" alt="微信端截图">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">自主选择活动 <span class="text-muted">随心操控真轻松</span></h2>
+          <p class="lead">用户关注 CUCFUN 微信公众账号后<br/>可以根据自动提示随时绑定或退出某一活动<br/></p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">清单永久保留 <span class="text-muted">随时查找吐槽</span></h2>
+          <p class="lead">用户在发表吐槽的同时，我们会记录吐槽的发布时刻，并保留所有的清单，活动结束后你还可以翻阅这些清单或者下载这些清单（尚未开放）</p>
+          <p><a class="btn btn-default btn-lg" role="button" href="/view/">去看看已有的吐槽 &raquo;</a> </p>
+        </div>
+        <div class="col-md-5">
+          <img src="public/images/topic.jpg" alt="吐槽列表">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+<!-- Modal -->
+<div class="modal fade" id="downloadQR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">下载各种尺寸二维码</h4>
+      </div>
+      <div class="modal-body">
+      
+	  <table class="table table-striped"  style="text-align: center">
+        <thead>
+          <tr> 
+            <th style="text-align: center">二维码边长(cm)</th>
+            <th style="text-align: center">建议扫描距离(米)</th>
+            <th style="text-align: center">下载链接</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>8cm</td>
+            <td>0.5m</td>
+            <td><a href="http://pan.baidu.com/s/1qrbCh" target="_blank"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+          </tr>
+          <tr>
+            <td>12cm</td>
+            <td>0.8m</td>
+            <td><a href="http://pan.baidu.com/s/1wwFXM" target="_blank"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+          </tr>
+          <tr>
+            <td>15cm</td>
+            <td>5m</td>
+            <td><a href="http://pan.baidu.com/s/1opkXO" target="_blank"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+          </tr>
+          <tr>
+            <td>30cm</td>
+            <td>1.5m</td>
+            <td><a href="http://pan.baidu.com/s/1f1HmK" target="_blank"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+          </tr>
+          <tr>
+            <td>50cm</td>
+            <td>2.5m</td>
+            <td><a href="http://pan.baidu.com/s/1mnrU5" target="_blank"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+          </tr>
+          <tr>
+            <td>100cm</td>
+            <td>5m</td>
+            <td><a href="http://pan.baidu.com/s/1ze5Qn" target="_blank"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+          </tr>
+          <tr>
+            <td colspan="3">*二维码尺寸请按照43像素的整数倍缩放，以保持最佳效果</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<include file="Public:footer" />

@@ -1,0 +1,90 @@
+<include file="Public:header" />
+
+<div class="mypage-header mypage-header-green">
+    <div class="container">
+        <div class="caption">
+            <h1>浏览活动</h1>
+            <p class="more" style="letter-spacing:5px;">LIST ALL ACTIVITIES</p>
+        </div>
+    </div>
+</div>
+
+
+      <!-- START THE FEATURETTES -->
+    <div class="container">
+   
+<div class="row" style="margin-top:50px;">
+  <div class="col-md-8">
+  	<img src="/public/images/list/title_1.jpg" />
+    	<if condition="$now_topics" >
+        <div class="list-group">
+          <div class="list-group-item" style="background-color: #EEE">
+            <p class="list-group-item-text"><strong>正在进行</strong></p>
+          </div>
+          
+        <foreach name="now_topics" item="t">
+          <a href="/view/{$t.id}/" class="list-group-item">
+            <span class="badge">{$t.count}</span>
+            <h4 class="list-group-item-heading">{$t.title}</h4>
+            <p class="list-group-item-text">持续{$t.days}天 | 活动日期 {$t.beginDate|date="Y年m月d日",###} 至 {$t.endDate|date="Y年m月d日",###}</p>
+          </a>
+        </foreach>
+
+        </div>
+        </if>
+
+		<if condition="$future_topics" >
+        <div class="list-group">
+          <div class="list-group-item" style="background-color: #EEE">
+            <p class="list-group-item-text"><strong>即将开始</strong></p>
+          </div>
+          
+        <foreach name="future_topics" item="t">
+          <a href="/view/{$t.id}/" class="list-group-item">
+            <span class="badge">{$t.count}</span>
+            <h4 class="list-group-item-heading">{$t.title}</h4>
+            <p class="list-group-item-text">持续{$t.days}天 | 活动日期 {$t.beginDate|date="Y年m月d日",###} 至 {$t.endDate|date="Y年m月d日",###}</p>
+          </a>
+        </foreach>
+
+        </div>
+        </if>
+
+        <if condition="$end_topics" >
+        <div class="list-group">
+          <div class="list-group-item" style="background-color: #EEE">
+            <p class="list-group-item-text"><strong>已经结束</strong></p>
+          </div>
+          
+        <foreach name="end_topics" item="t">
+          <a href="/view/{$t.id}/" class="list-group-item">
+            <span class="badge">{$t.count}</span>
+            <h4 class="list-group-item-heading">{$t.title}</h4>
+            <p class="list-group-item-text">持续{$t.days}天 | 活动日期 {$t.beginDate|date="Y年m月d日",###} 至 {$t.endDate|date="Y年m月d日",###}</p>
+          </a>
+        </foreach>
+
+        </div>    
+        </if>
+        
+        
+  </div>
+  <div class="col-md-4">
+
+	<div>
+      <img src="/public/images/list/title_11.jpg" />
+      <p>在这个页面将会显示所有已经结束，正在进行，即将开始的活动。点击进入就可以看到评论列表</p>
+    </div>
+	<div>
+      <img src="/public/images/list/title_12.jpg" />
+      <p>共计{$topics_count}个活动 {$now_where_count}个正在进行 {$future_topics_count}个即将开始 {$end_where_count}个已经结束<br>共计{$messages_count}条吐槽</p>
+    </div>
+  
+  </div>
+</div>
+                
+          <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+<include file="Public:footer" />

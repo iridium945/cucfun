@@ -1,0 +1,137 @@
+<include file="Public:header" />
+
+<div class="mypage-header mypage-header-red">
+    <div class="container">
+        <div class="caption">
+            <h1>API 列表</h1>
+            <p class="more" style="letter-spacing:5px;">VIEW ALL APIS</p>
+        </div>
+    </div>
+</div>
+
+
+      <!-- START THE FEATURETTES -->
+    <div class="container">
+   
+<div class="row" style="margin-top:50px;">
+  <div class="col-md-8">
+  	<p><img style="margin-bottom:5px;" src="/public/images/open/title_2.jpg" /></p>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>获取活动相关数据</strong></h3>
+          </div>
+          <div class="panel-body">
+            <p><strong>接口名称</strong><br>
+            /topic</p>
+            <p><strong>接口说明</strong> <br>
+              获取指定活动的相关数据。</p>
+            <p><strong>URL</strong> <br>
+              http://cucfun.com/api/topic<br>
+              返回格式：json</p>
+            <p><strong>HTTP请求方式</strong><br>
+              GET</p>
+            <p><strong>请求参数</strong></p>
+            <ul>
+              <li><code>id</code> int 必须<br>需要指定活动的ID编号</li>
+              <li><code>get</code> string  必须<br>需要获取的字段名称<br>可获取的字段有： 
+              <ul>
+                <li><code>title</code> 活动标题</li>
+                <li><code>description</code> 活动介绍</li>
+                <li><code>count</code> 已有吐槽数量</li>
+                <li><code>lastId</code> 本活动中最新吐槽ID</li>
+                <li><code>all</code> 获取所有字段参数</li>
+              </ul>
+            </ul>
+            <p><strong>请求示例</strong><br>
+              <code>http://cucfun.com/api/topic/id/1/get/count/</code><br/><code>http://cucfun.com/api/topic/id/1/get/all/</code></p>
+            <p><strong>返回数据示例</strong><br>
+             <pre>{"data":"40"}</pre></p>
+             <pre>{<br>   "data":[{<br>            "id":"1",<br>            "userId":"1",<br>            "title":"风采",<br>            "description":"风采之星2013 吐槽专用",<br>            "creatTime":"1377292576",<br>            "count":"9"<br>            "lastId":"21"<br>   }]<br>}</pre></p>
+            <p><strong>返回数据参数说明</strong></p>
+            <ul>
+              <li><code>id</code> int(11) 吐槽的ID编号</li>
+              <li><code>userId</code> int(11) 吐槽发布者的管理ID编号</li>
+              <li><code>title</code> string(20) 活动标题</li>
+              <li><code>description</code> string(256) 活动介绍</li>
+              <li><code>MsgId</code> bigint(64) 吐槽在微信服务器中的唯一编号</li>
+              <li><code>count</code> int(11) 已有吐槽容量</li>
+              <li><code>lastId</code> int(11) 本活动中最新吐槽ID</li>
+            </ul> 
+              
+          </div>
+        </div>
+
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>获取吐槽数据</strong></h3>
+          </div>
+          <div class="panel-body">
+            <p><strong>接口名称</strong><br>
+            /message</p>
+            <p><strong>接口说明</strong> <br>
+              获取指定活动的吐槽数据。</p>
+            <p><strong>URL</strong> <br>
+              http://cucfun.com/api/message<br>
+              返回格式：json</p>
+            <p><strong>HTTP请求方式</strong><br>
+              GET</p>
+            <p><strong>请求参数</strong></p>
+            <ul>
+              <li><code>id</code> int 必须<br>需要指定活动的ID编号</li>
+              <li><code>get</code> string  必须<br>排序模式<br>可获取的类型有： 
+              <ul>
+                <li><code>new</code> 按时间发布顺序由新至旧排序</li>
+                <li><code>random</code> 系统随机排序</li>
+                <li><code>hot</code> 获赞数量由多至少（暂未开通）</li>
+                <li><code>between</code> 规定范围内在当前活动中的吐槽</li>
+                  <ul>
+                    <li><code>from</code> 区间范围一</li>
+                    <li><code>to</code> 区间范围二</li>
+                  </ul>
+              </ul>
+              <li><code>limit</code> int 可选<br>限制显示数量 如果没有先设定则自动返回10条</li>
+            </ul>
+            <p><strong>请求示例</strong><br>
+              <code>http://cucfun.com/api/message/id/1/get/new/limit/2/</code>
+              <code>http://cucfun.com/api/message/id/1/get/between/from/2/to/3/</code></p>
+            <p><strong>返回数据示例</strong><br>
+            <pre>{<br>   "data":[{<br>            "id":"40",<br>            "topicId":"1",<br>            "wxUserId":"1",<br>            "content":"刷暴服务器",<br>            "creatTime":"1379084522",<br>            "MsgId":"5923122903229923328",<br>            "likecount":"0"<br>   },{<br>            "id":"39",<br>            "topicId":"1",<br>            "wxUserId":"1",<br>            "content":"刷暴服务器",<br>            "creatTime":"1379084518",<br>            "MsgId":"5923122886050054144",<br>            "likecount":"3"<br>   }]<br>}</pre>
+            </p>
+              
+            <p><strong>返回数据参数说明</strong></p>
+            <ul>
+              <li><code>id</code> int(11) 吐槽的ID编号</li>
+              <li><code>topicId</code> int(11) 吐槽所在主题的ID编号</li>
+              <li><code>wxUserId</code> int(11) 吐槽发布者的ID编号</li>
+              <li><code>content</code> string(256) 吐槽内容</li>
+              <li><code>creatTime</code> int(10) 吐槽发布时间的Unix 纪元秒数</li>
+              <li><code>MsgId</code> bigint(64) 吐槽在微信服务器中的唯一编号</li>
+              <li><code>likecount</code> int(11) 吐槽获赞次数</li>
+            </ul> 
+              
+          </div>
+        </div>
+
+  </div>
+  
+  <div class="col-md-4">
+
+	<div>
+      <img src="/public/images/list/title_11.jpg" />
+      <p>这里将会显示目前所有可用的API端口具体的使用方法以及范例，如果你想在我们的基础上开发自己的软件或者应用就可以详细的在这里了解你能得到的数据</p>
+    </div>
+	<div>
+      <img src="/public/images/open/title_12.jpg" />
+      <p>目前这些开放的端口都没有请求次数限制以及秘钥Token等限制，使用时请尽量优化程序，减少不必要的请求</p>
+    </div>
+  
+  </div>
+</div>
+                
+          <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+<include file="Public:footer" />
